@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>my_site.html</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="./test.css">
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+	</head>
+
+	<body>
+        <model-viewer
+            src="./models/gltf/Catwalk.gltf"
+            ios-src="./models/usdz/Catwalk.usdz"
+            ar
+            ar-placement="wall"
+            camera-controls
+            alt="A 3D model of some wall art"
+            id="model-viewer">
+
+            <!--<div id="annotation">This annotation is fixed in screen-space</div>-->
+
+        </model-viewer> 
+        <script>
+            const modelViewer = document.querySelector("model-viewer");
+
+            const url = window.location.href;
+            const filename = url.substring(url.lastIndexOf('?')+1);
+
+            modelViewer.src = "./models/gltf/" + filename + ".gltf";
+            modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
+            
+        </script>
+
+	</body>
+</html>
