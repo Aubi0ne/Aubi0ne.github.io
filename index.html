@@ -11,16 +11,11 @@
 
 	<body>
         <model-viewer
-            src="./models/gltf/Catwalk.gltf"
-            ios-src="./models/usdz/Catwalk.usdz"
             ar
             ar-placement="wall"
             camera-controls
             alt="A 3D model of some wall art"
             id="model-viewer">
-
-            <!--<div id="annotation">This annotation is fixed in screen-space</div>-->
-
         </model-viewer> 
         <script>
             const modelViewer = document.querySelector("model-viewer");
@@ -31,6 +26,9 @@
             modelViewer.src = "./models/gltf/" + filename + ".gltf";
             modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
             
+            if (!(filename === "TonyCraggSculpture" || filename === "Chaise" || filename === "Recumbent")){
+                window.location.href="aubi0ne/github.io/wall.html?" + filename;
+            }
         </script>
 
 	</body>
