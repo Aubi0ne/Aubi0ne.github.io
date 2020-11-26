@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>my_site.html</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="./css/main.css">
+	</head>
+
+	<body>
+
+		<script type="module">
+
+			import { ARButton } from './modules/ARButton.js';
+			import { WebGLLoader } from './modules/WebGLLoader.js';
+
+			var url = window.location.href;
+			var filename = url.substring(url.lastIndexOf('?')+1);
+			const webGLView = WebGLLoader.createWebGLLoader (filename);
+			webGLView.id = "webGLView";
+
+			if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
+    		{
+				const button = ARButton.createButton( url, filename, { requiredFeatures: [ 'hit-test' ] } );
+				button.id = "button_ar";
+				button.innerText = "AR View";
+				webGLView.appendChild(button);
+    		}
+    		else if(navigator.userAgent.indexOf("Chrome") != -1 )
+    		{
+				const button = ARButton.createButton(url, filename, { requiredFeatures: [ 'hit-test' ] } );
+				button.id = "button_ar";
+				button.innerText = "AR View";
+				webGLView.appendChild(button);
+    		}
+    		else if(navigator.userAgent.indexOf("Safari") != -1)
+    		{
+				const link_ar = document.createElement('a');
+				link_ar.id = "arLink";
+				link_ar.rel = "ar";
+				link_ar.href = "../final/models/usdz/" + filename + ".usdz";
+				const img = document.createElement('img');
+				link_ar.append(img);
+				const button_ar = document.createElement('button');
+				button_ar.id = "button_ar_safari";
+				button_ar.innerText = "AR View";
+
+				link_ar.appendChild(button_ar);
+				webGLView.appendChild(link_ar);
+    		}
+    		else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+    		{
+
+    		}
+    		else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+    		{
+
+    		}  
+    		else 
+    		{
+
+    		}
+
+			function onWindowResize() {
+				webGLView.onWindowResize();
+			}
+		</script>
+
+	</body>
+</html>
