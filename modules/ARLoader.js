@@ -10,10 +10,10 @@ class ARLoader {
 		let camera, scene, renderer;
 		let controller;
 
-		let reticle;
 		let display_art = true;
 		let move_art = true;
 		let model;
+		let vectorPos, posX, posY;
 
 		let hitTestSource = null;
 		let hitTestSourceRequested = false;
@@ -53,46 +53,37 @@ class ARLoader {
             const pmremGenerator = new THREE.PMREMGenerator(renderer);
 			pmremGenerator.compileEquirectangularShader();
 
-			function onSelect() {
-
-				if ( reticle.visible && display_art ) {
-
-					reticle.visible = false;
-					display_art = false;
-					scene.remove(reticle);
-
-					new RGBELoader()
-				    .setDataType(THREE.UnsignedByteType)
-				    .setPath('textures/equirectangular/')
-				    .load('royal_esplanade_1k.hdr', function(texture){
-
-				    	let envmap = pmremGenerator.fromEquirectangular(texture).texture;
-				    	scene.environment = envmap;
-				    	texture.dispose();
-				    	pmremGenerator.dispose();
-						render();
-						
-						const roughnessMipmapper = new RoughnessMipmapper(renderer);
-						
-                        const loader = new GLTFLoader().setPath('models/gltf/');
-				        loader.load(filename + ".gltf", function (gltf) {
-							model = gltf.scene;
-                            gltf.scene.position.setFromMatrixPosition(reticle.matrix);
-							gltf.scene.visible = true;
-							
-							/*if (onWall){
-								model.position.setFromRotationMatrix(reticle.matrix);
-							}*/
-							scene.add(gltf.scene);
-					        roughnessMipmapper.dispose();
-                            render();
-                        });
-					});
-					
-				} else {
-					move_art = false;
-				}
+			function onSelect (){
+				move_art = !move_art;
 			}
+
+			new RGBELoader()
+			.setDataType(THREE.UnsignedByteType)
+			.setPath('textures/equirectangular/')
+			.load('royal_esplanade_1k.hdr', function(texture){
+				let envmap = pmremGenerator.fromEquirectangular(texture).texture;
+				scene.environment = envmap;
+				texture.dispose();
+				pmremGenerator.dispose();
+				render();
+				
+				const roughnessMipmapper = new RoughnessMipmapper(renderer);
+				
+                const loader = new GLTFLoader().setPath('models/gltf/');
+			    loader.load(filename + ".gltf", function (gltf) {
+					model = gltf.scene;
+					gltf.scene.visible = true;
+					gltf.scene.scale.set(0.8, 0.8, 0.8);
+					
+					/*if (onWall){
+						model.position.setFromRotationMatrix(reticle.matrix);
+					}*/
+					scene.add(gltf.scene);
+			        roughnessMipmapper.dispose();
+                    render();
+                });
+			});
+
 			renderer.toneMapping = THREE.ACESFilmicToneMapping;
 			renderer.toneMappingExposure = 1;
 			renderer.outputEncoding = THREE.sRGBEncoding;
@@ -100,14 +91,6 @@ class ARLoader {
 			controller = renderer.xr.getController( 0 );
 			controller.addEventListener( 'select', onSelect );
 			scene.add( controller );
-
-			reticle = new THREE.Mesh(
-				new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
-				new THREE.MeshBasicMaterial()
-			);
-			reticle.matrixAutoUpdate = false;
-			reticle.visible = false;
-			scene.add( reticle );
 
 			window.addEventListener( 'resize', onWindowResize, false );
 
@@ -126,6 +109,10 @@ class ARLoader {
 
 			renderer.setAnimationLoop( render );
 
+		}
+
+		function normalize (val, max, min) {
+			return (val - min) / (max - min);
 		}
 
 		function render( timestamp, frame ) {
@@ -158,22 +145,30 @@ class ARLoader {
 
 						const hit = hitTestResults[ 0 ];
 
-						reticle.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
+						model.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
 						let position = new THREE.Vector3();
 						let quaternion = new THREE.Quaternion();
 						let scale = new THREE.Vector3();
-						reticle.matrix.decompose(position, quaternion, scale);
+						model.matrix.decompose(position, quaternion, scale);
 
 						if (quaternion.x != 0 || quaternion.z != 0){
-							reticle.visible = true;	
+							model.visible = true;
+							if(model != undefined && move_art){
+								vectorPos = model.position.setFromMatrixPosition(model.matrix);
+								posX = (Math.abs(normalize(vectorPos.x, 1.5, -2.0) - 0,5));
+								posY = (Math.abs(normalize(vectorPos.y, 1.0, -1.0) - 0,5));
+								let new_scale = (0.6 + (0.15 * (posX + posY)));
+								model.scale.set(new_scale, new_scale, new_scale);
+							}
 						}
 
-						if (model != undefined && move_art){
-							model.position.setFromMatrixPosition(reticle.matrix);
-						}
+						/*if (model != undefined && move_art){
+							model.position.setFromMatrixPosition(model.matrix);
+						}*/
 
 					} else {
-						reticle.visible = false;
+						if (model != undefined)
+							model.visible = false;
 					}
 				}
 			}
