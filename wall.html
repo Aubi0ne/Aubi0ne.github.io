@@ -5,10 +5,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="./css/main.css">
+		<script type="text/javascript" src="./modules/QRCode.js"></script>
 	</head>
 
 	<body>
-
+		<div id="qrcode"></div>
 		<script type="module">
 
 			import { ARButton } from './modules/ARButton.js';
@@ -16,12 +17,19 @@
 
 			var url = window.location.href;
 			var filename = url.substring(url.lastIndexOf('?')+1);
+			const divQRCode = document.getElementById("qrcode");;
 			const webGLView = WebGLLoader.createWebGLLoader (filename);
 			webGLView.id = "webGLView";
+			var qrcode = new QRCode(divQRCode, {
+                        	width : 100,
+                        	height : 100
+                        });
+            qrcode.makeCode(url);
+            divQRCode.style.visibility = "hidden";
 
 			if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
     		{
-				const button = ARButton.createButton( url, filename, { requiredFeatures: [ 'hit-test' ] } );
+				const button = ARButton.createButton(url, filename, { requiredFeatures: [ 'hit-test' ] } );
 				button.id = "button_ar";
 				button.innerText = "AR View";
 				webGLView.appendChild(button);

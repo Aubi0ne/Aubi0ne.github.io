@@ -12,25 +12,31 @@ html, body {
     position: relative;
 }
 
-button{
-  display: block;
-  width: 20px;
-  height: 20px;
+#button_ar{
+  position: absolute;
+  left: 5%;
+  top: calc(5%);
+  font: roboto;
+  font-size: 15px;
+  padding: 2px 10px;
+  background-color: white;
+  border: 1px solid black;
   border-radius: 10px;
-  border: none;
-  background-color: blue;
-  box-sizing: border-box;
+  vertical-align: center;
+  z-index: 3;
+  outline: none;
 }
 
-button[slot="hotspot-hand"]{
-  --min-hotspot-opacity: 0;
-  background-color: red;
+#qrcode{
+  position: absolute;
+  left: calc(5% - 8px);
+  top: calc(5% + 25px);
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 4;
 }
 
-button[slot="hotspot-foot"]:not([data-visible]) {
-  background-color: transparent;
-  border: 3px solid blue;
-}
 
 /*#annotation{
   background-color: #888888;

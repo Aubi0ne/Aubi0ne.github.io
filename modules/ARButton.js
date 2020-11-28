@@ -1,4 +1,3 @@
-//import * as QRCode from "./QRCode.js";
 import { ARLoader } from "./ARLoader.js";
 
 class ARButton {
@@ -6,12 +5,14 @@ class ARButton {
 	static createButton( page, filename, sessionInit = {} ) {
 
 		const button = document.createElement( 'button' );
-		const div_qrcode = document.createElement( 'div' );
+		const divQRCode = document.getElementById("qrcode");
+		let qrVisibility = false;
 		var webGlView = document.getElementById('webGLView');
 
 		function showStartAR( /*device*/ ) {
 
 			let currentSession = null;
+			document.body.removeChild(divQRCode);
 
 			function onSessionStarted( session ) {
 
@@ -73,6 +74,15 @@ class ARButton {
 
 		}
 
+		function displayModale(){
+			qrVisibility = !qrVisibility;
+			if (qrVisibility){
+				divQRCode.style.visibility = "visible";
+			} else {
+				divQRCode.style.visibility = "hidden";
+			}
+		}
+
 		function showARNotSupported() {
 
 			button.style.display = '';
@@ -80,10 +90,9 @@ class ARButton {
 			button.onmouseenter = null;
 			button.onmouseleave = null;
 
-			button.onclick = null;
-
-			button.textContent = 'AR NOT SUPPORTED';
-
+			button.onclick = displayModale;
+			button.textContent = 'VIEW IN AR';
+			webGlView.appendChild(button);
 		}
 
 		if ( 'xr' in navigator ) {
