@@ -6,13 +6,13 @@ class ARButton {
 
 		const button = document.createElement( 'button' );
 		const divQRCode = document.getElementById("qrcode");
+		document.body.removeChild(divQRCode);
 		let qrVisibility = false;
 		var webGlView = document.getElementById('webGLView');
 
 		function showStartAR( /*device*/ ) {
 
 			let currentSession = null;
-			document.body.removeChild(divQRCode);
 
 			function onSessionStarted( session ) {
 
@@ -84,7 +84,7 @@ class ARButton {
 		}
 
 		function showARNotSupported() {
-
+			document.body.appendChild(divQRCode);
 			button.style.display = '';
 
 			button.onmouseenter = null;
