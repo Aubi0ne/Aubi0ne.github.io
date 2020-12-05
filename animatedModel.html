@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>my_site.html</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="./css/test.css">
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+	</head>
+
+	<body>
+        <model-viewer
+            camera-controls
+            ar
+            autoplay
+            shadow-intensity="1"
+            id="model-viewer"
+            alt="An animated 3D model of a robot">
+        </model-viewer>
+        <script>
+            const modelViewer = document.querySelector("model-viewer");
+
+            const url = window.location.href;
+            const filename = url.substring(url.lastIndexOf('?')+1);
+
+            modelViewer.src = "./models/gltf/" + filename + ".glb";
+            modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
+
+        </script>
+	</body>
+</html>
