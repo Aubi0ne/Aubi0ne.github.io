@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <video autoplay="true" id="videoElement" playsinline="true" ></video>
+        <p id="textTest">Place your wrist between the 2 red lines, then touch the screen to see your watch !</p>
+        <img id="watch"></img>
+        <canvas id="canvas">
+            Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.
+        </canvas>
+        <button id="buttonReturn">
+          <img id="imgReturn" src="img/arrowReturn2.png"/>
+        </button>
+        <div id="border">
+          <button id="buttonScreenshot">
+            <img id="imgCamera" src="img/camera.png"/>
+          </button>
+        </div>
+    </div>
+
+    <script>
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+
+        var container = document.querySelector("#container");
+        var video = document.querySelector("#videoElement");
+        var textTest = document.getElementById('textTest');
+        var canvas = document.getElementById('canvas');
+        var watch = document.getElementById('watch');
+        var buttonReturn = document.getElementById('buttonReturn');
+        var divButtonScreenshot = document.getElementById('border');
+        var buttonScreenshot = document.getElementById('buttonScreenshot');
+
+        document.body.style.height = (height) + "px";
+        container.style.height = (height - 10) + "px";
+        video.style.height = (height - 10) + "px";
+
+        var ctx = canvas.getContext('2d');
+        ctx.canvas.width = width;
+        ctx.canvas.height = height;
+
+        var url = window.location.href;
+        var filename = url.substring(url.lastIndexOf('?')+1);
+        watch.src = "img/" + filename;
+
+        function init() {
+          buttonReturn.style.visibility = "hidden";
+          divButtonScreenshot.style.visibility = "hidden";
+
+          ctx.lineWidth = 8;
+          ctx.strokeStyle = 'red';
+          ctx.beginPath();
+          ctx.moveTo(width * 0.2, height * 0.4);
+          ctx.lineTo(width * 0.8, height * 0.4);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(width * 0.2, height * 0.6);
+          ctx.lineTo(width * 0.8, height * 0.6);
+          ctx.stroke();
+
+          watch.style.height = (height * 0.2 + (ctx.lineWidth * 2)) + "px";
+          watch.style.top = (height * 0.4 - ctx.lineWidth) + "px";
+          watch.style.left = (width * 0.4) + "px";
+          watch.style.opacity = "0.2";
+
+          container.onclick = placeImage;
+          buttonReturn.onclick = function () { window.location.replace(url); }
+        }
+
+        function takeScreenshot() {
+          var image = convertCanvasToImage(canvas);
+          var anchor = document.createElement('a');
+          anchor.setAttribute('href', image.src);
+          anchor.setAttribute('download', 'watch.png');
+          anchor.click();
+          
+          document.querySelector("#buttonScreenshot").style.backgroundColor = "white";
+          anchor.remove();
+        }
+
+        function placeImage() {
+            var coef = height / video.videoHeight; 
+            ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
+            textTest.style.visibility = "hidden";
+            container.onclick = null;
+            watch.style.opacity = "1";
+            buttonReturn.style.visibility = "visible";
+            divButtonScreenshot.style.visibility = "visible";
+            buttonScreenshot.onclick = takeScreenshot;
+        }
+
+        // Converts canvas to an image
+        function convertCanvasToImage(canvas) {
+          ctx.drawImage(watch, width * 0.4, height * 0.4 - ctx.lineWidth, watch.offsetWidth, watch.offsetHeight);
+          watch.style.visibility = "hidden";
+          var image = new Image();
+          image.src = canvas.toDataURL("watch/png");
+          return image;
+        }
+
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: {
+              facingMode: { exact: "environment" }
+            }})
+            .then(function (stream) {
+              video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+              console.log("Something went wrong!");
+            });
+
+            init();
+        }
+    </script>
+</body>
+</html>
