@@ -76,6 +76,10 @@
           ring.style.opacity = "0.55";
 
           switchHand();
+          setTimeout(function(){
+            console.log(hand.offsetHeight);
+            moveFingerRing();
+          },100);
 
           actionDiv.onclick = placeImage;
           buttonReturn.onclick = function () { window.location.replace(url); }
@@ -103,9 +107,7 @@
             divConfigView.style.left = "2vw";
             buttonSwitchHand.innerHTML = "Switch To Left Hand";
           }
-          setTimeout(function(){
-            moveFingerRing();
-          },20);
+          moveFingerRing();
           setTimeout(function(){
             buttonSwitchHand.blur();
           },50);
