@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="hand.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="actionDiv">
+          <video autoplay="true" id="videoElement" playsinline="true" ></video>
+          <p id="textTest">Line up your hand with the design and touch the screen to see your ring appear!</p>
+          <img id="hand" src="img/leftHand2.png"></img>
+          <img id="ring"></img>
+          <canvas id="canvas">
+            Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.
+          </canvas>
+        </div>
+        <div id="configView">
+          <button id="switchFingerButton">Next Finger</button>
+          <button id="switchHandButton">Switch To Right Hand</button>
+        </div>
+        <button id="buttonReturn">
+          <img id="imgReturn" src="img/arrowReturn2.png"/>
+        </button>
+        <div id="border">
+          <button id="buttonScreenshot">
+            <img id="imgCamera" src="img/camera.png"/>
+          </button>
+        </div>
+    </div>
+
+    <script>
+        var width = window.innerWidth;
+        var height = window.innerHeight - 10;
+
+        var container = document.querySelector("#container");
+        var actionDiv = document.querySelector("#actionDiv");
+        var video = document.querySelector("#videoElement");
+        var textTest = document.getElementById('textTest');
+        var canvas = document.getElementById('canvas');
+        var ring = document.getElementById('ring');
+        var hand = document.getElementById('hand');
+        var buttonReturn = document.getElementById('buttonReturn');
+        var divButtonScreenshot = document.getElementById('border');
+        var buttonScreenshot = document.getElementById('buttonScreenshot');
+        var divConfigView = document.getElementById('configView');
+        var buttonSwitchFinger = document.getElementById('switchFingerButton');
+        var buttonSwitchHand = document.getElementById('switchHandButton');
+
+        var isLeftHand = false;
+        var finger = 1;
+        var ringTransform = {"left": 0, "bottom": 0, "rotate": 0};
+
+        document.body.style.height = (height) + "px";
+        container.style.height = (height) + "px";
+        video.style.height = (height) + "px";
+
+        var ctx = canvas.getContext('2d');
+        ctx.canvas.width = width;
+        ctx.canvas.height = height;
+
+        var url = window.location.href;
+        var filename = url.substring(url.lastIndexOf('?')+1);
+        ring.src = "./img/" + filename + ".png";
+
+        function init() {
+          buttonReturn.style.visibility = "hidden";
+          divButtonScreenshot.style.visibility = "hidden";
+
+          hand.style.width = (width * 1.2) + "px";
+          hand.style.bottom = "0px";
+          hand.style.left = (-width * 0.1) + "px";
+
+          ring.style.width = (width * 0.135) + "px";
+          ring.style.opacity = "0.55";
+
+          switchHand();
+
+          actionDiv.onclick = placeImage;
+          buttonReturn.onclick = function () { window.location.replace(url); }
+          buttonSwitchHand.onclick = switchHand;
+          buttonSwitchFinger.onclick = function () {
+            finger++;
+            finger %= 5;
+            moveFingerRing();
+            setTimeout(function(){
+              buttonSwitchFinger.blur();
+            },50);
+          }
+        }
+
+        function switchHand() {
+          isLeftHand = !isLeftHand;
+          if (isLeftHand){
+            hand.src="img/leftHand2.png";
+            divConfigView.style.removeProperty("left");
+            divConfigView.style.right = "2vw";
+            buttonSwitchHand.innerHTML = "Switch To Right Hand";
+          } else {
+            hand.src="img/rightHand2.png";
+            divConfigView.style.removeProperty("right");
+            divConfigView.style.left = "2vw";
+            buttonSwitchHand.innerHTML = "Switch To Left Hand";
+          }
+          setTimeout(function(){
+            moveFingerRing();
+          },20);
+          setTimeout(function(){
+            buttonSwitchHand.blur();
+          },50);
+        }
+
+        function moveFingerRing(){
+          if (isLeftHand){
+            switch(finger){
+              case 0:
+                ringTransform.bottom = (hand.offsetHeight * 0.335);
+                ringTransform.left = (hand.offsetWidth * 0.57);
+                ringTransform.rotate = 50; 
+                break;
+              case 1:
+                ringTransform.bottom = (hand.offsetHeight * 0.485);
+                ringTransform.left = (hand.offsetWidth * 0.465);
+                ringTransform.rotate = 25; 
+                break;
+              case 2:
+                ringTransform.bottom = (hand.offsetHeight * 0.505);
+                ringTransform.left = (hand.offsetWidth * 0.355);
+                ringTransform.rotate = 10; 
+                break;
+              case 3:
+                ringTransform.bottom = (hand.offsetHeight * 0.495);
+                ringTransform.left = (hand.offsetWidth * 0.245);
+                ringTransform.rotate = -5; 
+                break;
+              case 4:
+                ringTransform.bottom = (hand.offsetHeight * 0.45);
+                ringTransform.left = (hand.offsetWidth * 0.135);
+                ringTransform.rotate = -16; 
+                break;
+            }
+          } else {
+            switch(finger){
+              case 0:
+                ringTransform.bottom = (hand.offsetHeight * 0.335);
+                ringTransform.left = (hand.offsetWidth * 0.155);
+                ringTransform.rotate = -50; 
+                break;
+              case 1:
+                ringTransform.bottom = (hand.offsetHeight * 0.485);
+                ringTransform.left = (hand.offsetWidth * 0.255);
+                ringTransform.rotate = -25; 
+                break;
+              case 2:
+                ringTransform.bottom = (hand.offsetHeight * 0.505);
+                ringTransform.left = (hand.offsetWidth * 0.365);
+                ringTransform.rotate = -10; 
+                break;
+              case 3:
+                ringTransform.bottom = (hand.offsetHeight * 0.495);
+                ringTransform.left = (hand.offsetWidth * 0.475);
+                ringTransform.rotate = 5; 
+                break;
+              case 4:
+                ringTransform.bottom = (hand.offsetHeight * 0.45);
+                ringTransform.left = (hand.offsetWidth * 0.585);
+                ringTransform.rotate = 16; 
+                break;
+            }
+          }
+          ring.style.bottom = ringTransform.bottom + "px";
+          ring.style.left = ringTransform.left + "px";
+          ring.style.transform = "rotate(" + ringTransform.rotate + "deg)";
+        }
+
+        function takeScreenshot() {
+          var image = convertCanvasToImage(canvas);
+          var anchor = document.createElement('a');
+          anchor.setAttribute('href', image.src);
+          anchor.setAttribute('download', 'ring.png');
+          anchor.click();
+          
+          document.querySelector("#buttonScreenshot").style.backgroundColor = "white";
+          anchor.remove();
+        }
+
+        function placeImage() {
+            var coef = height / video.videoHeight; 
+            ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
+            textTest.style.visibility = "hidden";
+            hand.style.visibility = "hidden";
+            divConfigView.style.visibility = "hidden";
+            container.onclick = null;
+            ring.style.opacity = "1";
+            buttonReturn.style.visibility = "visible";
+            divButtonScreenshot.style.visibility = "visible";
+            buttonScreenshot.onclick = takeScreenshot;
+        }
+
+        // Converts canvas to an image
+        function convertCanvasToImage(canvas) {
+          var x = ringTransform.left;
+          var y = height - (ringTransform.bottom + ring.offsetHeight);
+          console.log(ringTransform.left + ", " + ringTransform.bottom + ", " + height + ", " + (height - ringTransform.bottom));
+          ctx.translate(x, y);
+          ctx.rotate(ringTransform.rotate * Math.PI / 180);
+          ctx.drawImage(ring, 0, 0, ring.offsetWidth, ring.offsetHeight);
+          ctx.rotate(-ringTransform.rotate * Math.PI / 180);
+          ctx.translate(-x, -y);
+          ring.style.visibility = "hidden";
+          var image = new Image();
+          image.src = canvas.toDataURL("ring/png");
+          return image;
+        }
+
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: {
+              facingMode: { exact: "environment" }
+            }})
+            .then(function (stream) {
+              video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+              console.log("Something went wrong!");
+            });
+
+            init();
+        }
+    </script>
+</body>
+</html>
