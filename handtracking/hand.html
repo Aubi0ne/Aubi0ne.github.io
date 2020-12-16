@@ -9,8 +9,8 @@
     <div id="container">
         <div id="actionDiv">
           <video autoplay="true" id="videoElement" playsinline="true" ></video>
-          <p id="textTest">Line up your hand with the design and touch the screen to see your ring appear!</p>
           <img id="hand" src="img/leftHand2.png"></img>
+          <p id="textTest">Line up your hand with the design and touch the screen to see your ring appear!</p>
           <img id="ring"></img>
           <canvas id="canvas">
             Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.
@@ -72,14 +72,12 @@
           hand.style.bottom = "0px";
           hand.style.left = (-width * 0.1) + "px";
 
+          switchHand();
+
           ring.style.width = (width * 0.135) + "px";
           ring.style.opacity = "0.55";
 
-          switchHand();
-          setTimeout(function(){
-            console.log(hand.offsetHeight);
-            moveFingerRing();
-          },100);
+          moveFingerRing();
 
           actionDiv.onclick = placeImage;
           buttonReturn.onclick = function () { window.location.replace(url); }
@@ -193,7 +191,7 @@
             textTest.style.visibility = "hidden";
             hand.style.visibility = "hidden";
             divConfigView.style.visibility = "hidden";
-            container.onclick = null;
+            actionDiv.onclick = null;
             ring.style.opacity = "1";
             buttonReturn.style.visibility = "visible";
             divButtonScreenshot.style.visibility = "visible";
