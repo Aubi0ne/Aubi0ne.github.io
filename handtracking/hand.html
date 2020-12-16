@@ -76,8 +76,10 @@
 
           ring.style.width = (width * 0.135) + "px";
           ring.style.opacity = "0.55";
-
-          moveFingerRing();
+          setTimeout(function(){
+            console.log(hand.offsetHeight);
+            ring.style.bottom = (hand.offsetHeight * 0.485) + "px";
+          },100);
 
           actionDiv.onclick = placeImage;
           buttonReturn.onclick = function () { window.location.replace(url); }
