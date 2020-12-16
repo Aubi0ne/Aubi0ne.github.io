@@ -77,8 +77,6 @@
           necklace.style.left = (width * 0.26) + "px";
           necklace.style.opacity = "0.5";
 
-          console.log((width * 0.4) + "px" + ", " + (height * 0.7) + "px" + ", " + (width * 0.3) + "px");
-
           container.onclick = placeImage;
           buttonReturn.onclick = function () { window.location.replace(url); }
         }
@@ -109,7 +107,7 @@
 
         // Converts canvas to an image
         function convertCanvasToImage(canvas) {
-          ctx.drawImage(necklace, width * 0.3, height * 0.7, necklace.offsetWidth, necklace.offsetHeight);
+          ctx.drawImage(necklace, width * 0.26, height * 0.6, necklace.offsetWidth, necklace.offsetHeight);
           necklace.style.visibility = "hidden";
           var image = new Image();
           image.src = canvas.toDataURL("necklace/png");

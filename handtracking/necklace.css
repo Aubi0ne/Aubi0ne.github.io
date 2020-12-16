@@ -55,8 +55,8 @@ body, html{
     position: absolute;
     width: fit-content;
     bottom: 0;
-    right: 10%;
-    transform: translate(-50%, -20%);
+    right: 5vw;
+    transform: translate(0, -20%);
     z-index: 3;
   
     border: 15px solid white;
