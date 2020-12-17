@@ -201,15 +201,15 @@
 
         // Converts canvas to an image
         function convertCanvasToImage(canvas) {
-          var x = ringTransform.left;
-          var y = height - (ringTransform.bottom + ring.offsetHeight);
-          console.log(ringTransform.left + ", " + ringTransform.bottom + ", " + height + ", " + (height - ringTransform.bottom));
-          ctx.translate(x, y);
-          ctx.rotate(ringTransform.rotate * Math.PI / 180);
-          ctx.drawImage(ring, 0, 0, ring.offsetWidth, ring.offsetHeight);
-          ctx.rotate(-ringTransform.rotate * Math.PI / 180);
-          ctx.translate(-x, -y);
           ring.style.visibility = "hidden";
+          var x = ringTransform.left ;
+          var y = height - (ringTransform.bottom + ring.offsetHeight);
+          ctx.save(); 
+          ctx.translate(x, y);
+          ctx.translate(ring.offsetWidth/2, ring.offsetHeight/2);
+          ctx.rotate(ringTransform.rotate * (Math.PI / 180));
+          ctx.drawImage(ring, -ring.offsetWidth/2, -ring.offsetHeight/2, ring.offsetWidth, ring.offsetHeight);
+          ctx.restore();
           var image = new Image();
           image.src = canvas.toDataURL("ring/png");
           return image;
