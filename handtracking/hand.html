@@ -77,7 +77,8 @@
           ring.style.width = (width * 0.135) + "px";
           ring.style.opacity = "0.55";
           setTimeout(function(){
-            ring.style.bottom = (hand.offsetHeight * 0.485) + "px";
+            ringTransform.bottom = (hand.offsetHeight * 0.485) + "px";
+            ring.style.bottom = ringTransform.bottom + "px";
           },300);
 
           actionDiv.onclick = placeImage;
