@@ -72,9 +72,9 @@
           ctx.lineTo(width * 1, height * 0.65);
           ctx.stroke();
 
-          necklace.style.width = (width * 0.48) + "px";
-          necklace.style.top = (height * 0.6) + "px";
-          necklace.style.left = (width * 0.26) + "px";
+          necklace.style.width = (width * 0.415) + "px";
+          necklace.style.top = (height * 0.58) + "px";
+          necklace.style.left = (width * 0.295) + "px";
           necklace.style.opacity = "0.5";
 
           container.onclick = placeImage;
@@ -107,7 +107,7 @@
 
         // Converts canvas to an image
         function convertCanvasToImage(canvas) {
-          ctx.drawImage(necklace, width * 0.26, height * 0.6, necklace.offsetWidth, necklace.offsetHeight);
+          ctx.drawImage(necklace, width * 0.29, height * 0.58, necklace.offsetWidth, necklace.offsetHeight);
           necklace.style.visibility = "hidden";
           var image = new Image();
           image.src = canvas.toDataURL("necklace/png");

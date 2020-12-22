@@ -55,21 +55,21 @@
         earringL.src = "./img/" + filename + "Left.png";
         earringR.src = "./img/" + filename + "Right.png";
 
-        var widthEarring = width * 0.05;
+        var widthEarring = width * 0.03;
 
         function init() {
           buttonReturn.style.visibility = "hidden";
           divButtonScreenshot.style.visibility = "hidden";
 
-          ctx.lineWidth = 8;
+          ctx.lineWidth = 6;
           ctx.strokeStyle = 'red';
           ctx.beginPath();
           ctx.moveTo(width * 0.21, height * 0.44);
-          ctx.lineTo(width * 0.21, height * 0.54);
+          ctx.lineTo(width * 0.23, height * 0.54);
           ctx.stroke();
           ctx.beginPath();
           ctx.moveTo(width * 0.79, height * 0.44);
-          ctx.lineTo(width * 0.79, height * 0.54);
+          ctx.lineTo(width * 0.77, height * 0.54);
           ctx.stroke();
 
           earLeft.style.height = (height * 0.10) + "px";
@@ -83,13 +83,13 @@
           earRight.style.left = (width * 0.79) + "px";
 
           earringL.style.width = widthEarring + "px";
-          earringL.style.top = (height * 0.52) + "px";
-          earringL.style.left = (width * 0.19 - widthEarring/2) + "px";
+          earringL.style.top = (height * 0.525) + "px";
+          earringL.style.left = (width * 0.215 - widthEarring/2) + "px";
           earringL.style.opacity = "0.5";
 
           earringR.style.width = widthEarring + "px";
-          earringR.style.top = (height * 0.52) + "px";
-          earringR.style.left = (width * 0.81 - widthEarring/2) + "px";
+          earringR.style.top = (height * 0.525) + "px";
+          earringR.style.left = (width * 0.785 - widthEarring/2) + "px";
           earringR.style.opacity = "0.5";
 
           container.onclick = placeImage;
@@ -125,8 +125,8 @@
 
         // Converts canvas to an image
         function convertCanvasToImage(canvas) {
-          ctx.drawImage(earringL, width * 0.19 - widthEarring/2, height * 0.52, earringL.offsetWidth, earringL.offsetHeight);
-          ctx.drawImage(earringR, width * 0.81 - widthEarring/2, height * 0.52, earringR.offsetWidth, earringR.offsetHeight);
+          ctx.drawImage(earringL, width * 0.215 - widthEarring/2, height * 0.525, earringL.offsetWidth, earringL.offsetHeight);
+          ctx.drawImage(earringR, width * 0.785 - widthEarring/2, height * 0.525, earringR.offsetWidth, earringR.offsetHeight);
           earringL.style.visibility = "hidden";
           earringR.style.visibility = "hidden";
           var image = new Image();
@@ -144,7 +144,7 @@
             });
             setTimeout(function(){
                 video.style.left = ((video.videoWidth * (height/video.videoHeight) - width)/-2) + "px";
-            },1000);
+            },1100);
             init();
         }
     </script>
