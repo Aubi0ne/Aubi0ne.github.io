@@ -101,6 +101,10 @@
               ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/2, 0);
             } else if(navigator.userAgent.indexOf("Safari") != -1) {
               ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
+            } else {
+              ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/-2, 0); 
+              ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
+              ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/2, 0);
             }
             textTest.style.visibility = "hidden";
             container.onclick = null;
