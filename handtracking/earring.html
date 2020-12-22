@@ -109,9 +109,14 @@
 
         function placeImage() {
             var coef = height / video.videoHeight;
-            ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/-2, 0); 
-            ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
-            ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/2, 0);
+            if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
+              || navigator.userAgent.indexOf("Chrome") != -1){
+              ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/-2, 0); 
+              ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
+              ctx.translate((video.videoWidth * (height/video.videoHeight) - width)/2, 0);
+            } else if(navigator.userAgent.indexOf("Safari") != -1) {
+              ctx.drawImage(video, 0, 0, video.videoWidth * coef, height);
+            }
             textTest.style.visibility = "hidden";
             earLeft.style.visibility = "hidden";
             earRight.style.visibility = "hidden";
