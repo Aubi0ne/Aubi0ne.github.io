@@ -4,7 +4,7 @@
 		<title>my_site.html</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <link type="text/css" rel="stylesheet" href="./css/test.css">
+        <link type="text/css" rel="stylesheet" href="./test.css">
         <script type="text/javascript" src="./modules/QRCode.js"></script>
         <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
         <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
@@ -12,16 +12,45 @@
 
 	<body>
         <div id="qrcode"></div>
+        <button id="buttonAR"></button>
         <model-viewer
             ar
             ar-placement="wall"
             camera-controls
             alt="A 3D model of some wall art"
             id="model-viewer">
+            <button id="buttonHelp">?</button>
+            <div id="help">
+                <h1>Help<h1>
+                <div id="mainInfoDiv">
+                    <div class="infodiv">
+                        <img src="./img/exempleMove.png">
+                        <p>Touch the artwork and move your finger on the screen to move the artwork</p>
+                    </div>
+                    <div class="infodiv">
+                        <img src="./img/exempleRotate.png">
+                        <p>Touch around the artwork and move your finger on the screen to rotate the artwork</p>
+                    </div>
+                    <div class="infodiv">
+                        <img src="./img/exempleDoubleTouch.png">
+                        <p>Touch the artwork with two fingers and move them apart or bring them closer to resize the artwork</p>
+                    </div>
+                </div>
+            </div>
         </model-viewer>
         <script>
             const modelViewer = document.querySelector("model-viewer");
+            const h1 = document.querySelector("h1");
             const divQRCode = document.getElementById("qrcode");
+            const buttonHelp = document.getElementById("buttonHelp");
+            const buttonAR= document.getElementById("buttonAR");
+            const help = document.getElementById("help");
+            
+            divQRCode.style.visibility = "hidden";
+            this.help.style.visibility = "hidden";
+            this.buttonAR.style.visibility = "hidden";
+            this.buttonHelp.style.visibility = "hidden";
+            let helpVisibility = false;
             let qrVisibility = false;
 
             const url = window.location.href;
@@ -29,8 +58,43 @@
 
             modelViewer.src = "./models/gltf/" + filename + ".gltf";
             modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
+
+            modelViewer.addEventListener('ar-status', (event) => {
+                if(event.detail.status === 'not-presenting'){
+                    this.help.style.visibility = "hidden";
+                    this.buttonHelp.style.visibility = "hidden";
+                } else if (event.detail.status === 'session-started') {
+                    this.buttonHelp.style.visibility = "hidden";
+                } else if (event.detail.status === 'object-placed') {
+                    this.buttonHelp.style.visibility = "visible";
+                }
+            });
+
+            if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
+                || navigator.userAgent.indexOf("Chrome") != -1 ){
+                help.onclick = function () {
+                    help.style.visibility = "hidden";
+                    helpVisibility = false;
+                }
+            } else if(navigator.userAgent.indexOf("Safari") != -1) {
+                buttonAR.onclick = function () {
+                    help.style.visibility = "visible";
+                    h1.innerText = "Touch To Start AR"
+                }
+                help.onclick = function () {
+                    help.style.visibility = "hidden";
+                    helpVisibility = false;
+                    modelViewer.activateAR();
+                }
+                buttonAR.style.visibility = "visible";
+            }
+
+            buttonHelp.onclick = function () {
+                help.style.visibility = helpVisibility == 0 ? "visible" : "hidden";
+                helpVisibility = !helpVisibility;
+            }
             
-            if (!(filename === "TonyCraggSculpture" || filename === "Chaise" || filename === "Recumbent")){
+            if (!(filename === "TonyCraggSculpture" || filename === "TonyCraggSculpture11" || filename === "Chaise" || filename === "Recumbent")){
                 window.location.href="wall.html?" + filename;
             }
 
@@ -57,7 +121,6 @@
                         	height : 100
                         });
                         qrcode.makeCode(url);
-                        divQRCode.style.visibility = "hidden";
                     } else {
                         document.body.removeChild(divQRCode);
                     }
