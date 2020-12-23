@@ -87,6 +87,11 @@
                     modelViewer.activateAR();
                 }
                 buttonAR.style.visibility = "visible";
+            } else {
+                help.onclick = function () {
+                    help.style.visibility = "hidden";
+                    helpVisibility = false;
+                }
             }
 
             buttonHelp.onclick = function () {
