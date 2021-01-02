@@ -126,11 +126,23 @@
                         	height : 100
                         });
                         qrcode.makeCode(url);
-                    } else {
+                    } else
                         document.body.removeChild(divQRCode);
-                    }
                 });
-            }
+            } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
+                const button = document.createElement( 'button' );
+                button.id = 'button_ar';
+                button.onclick = displayModale;
+                button.textContent = 'VIEW IN AR';
+                modelViewer.appendChild(button);
+                
+                var qrcode = new QRCode(divQRCode, {
+                	width : 100,
+                	height : 100
+                });
+                qrcode.makeCode(url);
+            } else
+                document.body.removeChild(divQRCode);
 
         </script>
 	</body>
