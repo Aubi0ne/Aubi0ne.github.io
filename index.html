@@ -39,12 +39,12 @@
             </div>
         </model-viewer>
         <script>
-            const modelViewer = document.querySelector("model-viewer");
-            const h1 = document.querySelector("h1");
-            const divQRCode = document.getElementById("qrcode");
-            const buttonHelp = document.getElementById("buttonHelp");
-            const buttonAR= document.getElementById("buttonAR");
-            const help = document.getElementById("help");
+            var modelViewer = document.querySelector("model-viewer");
+            var h1 = document.querySelector("h1");
+            var divQRCode = document.getElementById("qrcode");
+            var buttonHelp = document.getElementById("buttonHelp");
+            var buttonAR= document.getElementById("buttonAR");
+            var help = document.getElementById("help");
             
             divQRCode.style.visibility = "hidden";
             this.help.style.visibility = "hidden";
@@ -53,8 +53,8 @@
             let helpVisibility = false;
             let qrVisibility = false;
 
-            const url = window.location.href;
-            const filename = url.substring(url.lastIndexOf('?')+1);
+            var url = window.location.href;
+            var filename = url.substring(url.lastIndexOf('?')+1);
 
             modelViewer.src = "./models/gltf/" + filename + ".gltf";
             modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
@@ -69,6 +69,30 @@
                     this.buttonHelp.style.visibility = "visible";
                 }
             });
+
+            if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
+                || navigator.userAgent.indexOf("Chrome") != -1 ){
+                help.onclick = function () {
+                    help.style.visibility = "hidden";
+                    helpVisibility = false;
+                }
+            } else if(navigator.userAgent.indexOf("Safari") != -1) {
+                buttonAR.onclick = function () {
+                    help.style.visibility = "visible";
+                    h1.innerText = "Touch To Start AR"
+                }
+                help.onclick = function () {
+                    help.style.visibility = "hidden";
+                    helpVisibility = false;
+                    modelViewer.activateAR();
+                }
+                buttonAR.style.visibility = "visible";
+            } else {
+                help.onclick = function () {
+                    help.style.visibility = "hidden";
+                    helpVisibility = false;
+                }
+            }
 
             buttonHelp.onclick = function () {
                 help.style.visibility = helpVisibility == 0 ? "visible" : "hidden";
@@ -88,46 +112,22 @@
                 }
             }
 
+            const button = document.createElement( 'button' );
+            button.id = 'button_ar';
+            button.onclick = displayModale;
+            button.textContent = 'VIEW IN AR';
+            modelViewer.appendChild(button);
+            
+            var qrcode = new QRCode(divQRCode, {
+            	width : 100,
+            	height : 100
+            });
+            qrcode.makeCode(url);
+
             if ( 'xr' in navigator ) {
 			    navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
-                    if (!supported){
-                        const button = document.createElement( 'button' );
-                        button.id = 'button_ar';
-                        button.onclick = displayModale;
-                        button.textContent = 'VIEW IN AR';
-                        modelViewer.appendChild(button);
-                        
-                        var qrcode = new QRCode(divQRCode, {
-                        	width : 100,
-                        	height : 100
-                        });
-                        qrcode.makeCode(url);
-                    } else {
+                    if (supported)
                         document.body.removeChild(divQRCode);
-                        if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
-                            || navigator.userAgent.indexOf("Chrome") != -1 ){
-                            help.onclick = function () {
-                                help.style.visibility = "hidden";
-                                helpVisibility = false;
-                            }
-                        } else if(navigator.userAgent.indexOf("Safari") != -1) {
-                            buttonAR.onclick = function () {
-                                help.style.visibility = "visible";
-                                h1.innerText = "Touch To Start AR"
-                            }
-                            help.onclick = function () {
-                                help.style.visibility = "hidden";
-                                helpVisibility = false;
-                                modelViewer.activateAR();
-                            }
-                            buttonAR.style.visibility = "visible";
-                        } else {
-                            help.onclick = function () {
-                                help.style.visibility = "hidden";
-                                helpVisibility = false;
-                            }
-                        }
-                    }
                 });
             }
 
