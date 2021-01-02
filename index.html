@@ -79,7 +79,9 @@
             } else if(navigator.userAgent.indexOf("Safari") != -1) {
                 buttonAR.onclick = function () {
                     help.style.visibility = "visible";
-                    h1.innerText = "Touch To Start AR"
+                    h1.innerText = "Touch To Start AR";
+                    h1.style.webkitAnimation =  "breathing 3s ease-out infinite normal";
+                    h1.style.animation = "breathing 3s ease-out infinite normal";
                 }
                 help.onclick = function () {
                     help.style.visibility = "hidden";
