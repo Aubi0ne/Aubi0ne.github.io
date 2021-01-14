@@ -15,13 +15,9 @@
         <button id="buttonAR"></button>
         <model-viewer
             ar
-            ar-placement="wall"
             camera-controls
             alt="A 3D model of some wall art"
             id="model-viewer">
-            <button slot="ar-button" id="ar-button">
-                View in your space
-            </button>            
             <button id="buttonHelp">?</button>
             <div id="help">
                 <h1>Help<h1>
@@ -42,12 +38,12 @@
             </div>
         </model-viewer>
         <script>
-            var modelViewer = document.querySelector("model-viewer");
-            var h1 = document.querySelector("h1");
-            var divQRCode = document.getElementById("qrcode");
-            var buttonHelp = document.getElementById("buttonHelp");
-            var buttonAR= document.getElementById("buttonAR");
-            var help = document.getElementById("help");
+            const modelViewer = document.querySelector("model-viewer");
+            const h1 = document.querySelector("h1");
+            const divQRCode = document.getElementById("qrcode");
+            const buttonHelp = document.getElementById("buttonHelp");
+            const buttonAR= document.getElementById("buttonAR");
+            const help = document.getElementById("help");
             
             divQRCode.style.visibility = "hidden";
             this.help.style.visibility = "hidden";
@@ -56,8 +52,8 @@
             let helpVisibility = false;
             let qrVisibility = false;
 
-            var url = window.location.href;
-            var filename = url.substring(url.lastIndexOf('?')+1);
+            const url = window.location.href;
+            const filename = url.substring(url.lastIndexOf('?')+1);
 
             modelViewer.src = "./models/gltf/" + filename + ".gltf";
             modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
@@ -82,9 +78,7 @@
             } else if(navigator.userAgent.indexOf("Safari") != -1) {
                 buttonAR.onclick = function () {
                     help.style.visibility = "visible";
-                    h1.innerText = "Touch To Start AR";
-                    h1.style.webkitAnimation =  "breathing 3s ease-out infinite normal";
-                    h1.style.animation = "breathing 3s ease-out infinite normal";
+                    h1.innerText = "Touch To Start AR"
                 }
                 help.onclick = function () {
                     help.style.visibility = "hidden";
@@ -131,23 +125,11 @@
                         	height : 100
                         });
                         qrcode.makeCode(url);
-                    } else
+                    } else {
                         document.body.removeChild(divQRCode);
+                    }
                 });
-            } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
-                const button = document.createElement( 'button' );
-                button.id = 'button_ar';
-                button.onclick = displayModale;
-                button.textContent = 'VIEW IN AR';
-                modelViewer.appendChild(button);
-                
-                var qrcode = new QRCode(divQRCode, {
-                	width : 100,
-                	height : 100
-                });
-                qrcode.makeCode(url);
-            } else
-                document.body.removeChild(divQRCode);
+            }
 
         </script>
 	</body>
