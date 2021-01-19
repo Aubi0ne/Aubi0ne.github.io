@@ -21,7 +21,7 @@
             id="model-viewer">
             <button slot="ar-button" id="ar-button">
                 View in your room
-            </button>            
+            </button>
             <button id="buttonHelp">?</button>
             <div id="help">
                 <h1>Help<h1>
@@ -123,7 +123,7 @@
                         const button = document.createElement( 'button' );
                         button.id = 'button_ar';
                         button.onclick = displayModale;
-                        button.textContent = 'VIEW IN AR';
+                        button.textContent = 'View in your room';
                         modelViewer.appendChild(button);
                         
                         var qrcode = new QRCode(divQRCode, {
@@ -138,7 +138,7 @@
                 const button = document.createElement( 'button' );
                 button.id = 'button_ar';
                 button.onclick = displayModale;
-                button.textContent = 'VIEW IN AR';
+                button.textContent = 'View in your room';
                 modelViewer.appendChild(button);
                 
                 var qrcode = new QRCode(divQRCode, {
