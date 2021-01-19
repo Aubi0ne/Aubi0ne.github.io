@@ -15,10 +15,14 @@
         <button id="buttonAR"></button>
         <model-viewer
             ar
+            exposure="0.5"
             ar-placement="wall"
             camera-controls
             alt="A 3D model of some wall art"
             id="model-viewer">
+            <button slot="ar-button" id="ar-button">
+                View in your room
+            </button>
             <button id="buttonHelp">?</button>
             <div id="help">
                 <h1>Help<h1>
@@ -79,7 +83,9 @@
             } else if(navigator.userAgent.indexOf("Safari") != -1) {
                 buttonAR.onclick = function () {
                     help.style.visibility = "visible";
-                    h1.innerText = "Touch To Start AR"
+                    h1.innerText = "Touch To Start AR";
+                    h1.style.webkitAnimation =  "breathing 3s ease-out infinite normal";
+                    h1.style.animation = "breathing 3s ease-out infinite normal";
                 }
                 help.onclick = function () {
                     help.style.visibility = "hidden";
@@ -122,12 +128,23 @@
                         	height : 100
                         });
                         qrcode.makeCode(url);
-                    } else {
+                    }  else
                         document.body.removeChild(divQRCode);
-                    }
                 });
-
-            }
+            } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
+                const button = document.createElement( 'button' );
+                button.id = 'button_ar';
+                button.onclick = displayModale;
+                button.textContent = 'View in your room';
+                modelViewer.appendChild(button);
+                
+                var qrcode = new QRCode(divQRCode, {
+                	width : 100,
+                	height : 100
+                });
+                qrcode.makeCode(url);
+            } else
+                document.body.removeChild(divQRCode);
 
         </script>
 	</body>

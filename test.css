@@ -194,7 +194,7 @@ html, body {
 }
 
 #button_ar{
-  position: absolute;
+  position: relative;
   left: 5%;
   top: calc(5%);
   font: roboto;
@@ -210,7 +210,8 @@ html, body {
 
 #qrcode{
   position: absolute;
-  left: calc(6% - 8px);
+  width: 100px;
+  left: calc(5% + 0.6vw);
   top: calc(5% + 25px);
   padding: 10px;
   border: 2px solid black;
