@@ -11,18 +11,31 @@
 	</head>
 
 	<body>
+        <style>
+            
+        </style>
         <div id="qrcode"></div>
         <button id="buttonAR"></button>
         <model-viewer
             ar
-            ar-placement="wall"
             camera-controls
             alt="A 3D model of some wall art"
             id="model-viewer">
+            <!--<button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
+            <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dot+X+Y-Z" class="dot show" data-position="1 1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dim+Y-Z" class="dim show" data-position="0 -1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dot-X+Y-Z" class="dot show" data-position="-1 1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>-->
+            <button id="buttonHelp">?</button>
             <button slot="ar-button" id="ar-button">
                 View in your room
             </button>
-            <button id="buttonHelp">?</button>
             <div id="help">
                 <h1>Help<h1>
                 <div id="mainInfoDiv">
@@ -148,6 +161,79 @@
                 qrcode.makeCode(url);
             } else
                 document.body.removeChild(divQRCode);
+
+            /*modelViewer.addEventListener('load', () => {
+            const center = modelViewer.getCameraTarget();
+            const size = modelViewer.getDimensions();
+            const x2 = size.x / 2;
+            const y2 = size.y / 2;
+            const z2 = size.z / 2;
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot+X-Y+Z',
+                position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`
+            });
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim+X-Y',
+                position: `${center.x + x2} ${center.y - y2} ${center.z}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+X-Y"]').textContent =
+                `${(size.z * 100).toFixed(0)} cm`;
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot+X-Y-Z',
+                position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`
+            });
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim+X-Z',
+                position: `${center.x + x2} ${center.y} ${center.z - z2}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+X-Z"]').textContent =
+                `${(size.y * 100).toFixed(0)} cm`;
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot+X+Y-Z',
+                position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`
+            });
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim+Y-Z',
+                position: `${center.x} ${center.y + y2} ${center.z - z2}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+Y-Z"]').textContent =
+                `${(size.x * 100).toFixed(0)} cm`;
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot-X+Y-Z',
+                position: `${center.x - x2} ${center.y + y2} ${center.z - z2}`
+            });
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim-X-Z',
+                position: `${center.x - x2} ${center.y} ${center.z - z2}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim-X-Z"]').textContent =
+                `${(size.y * 100).toFixed(0)} cm`;
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot-X-Y-Z',
+                position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`
+            });
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim-X-Y',
+                position: `${center.x - x2} ${center.y - y2} ${center.z}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim-X-Y"]').textContent =
+                `${(size.z * 100).toFixed(0)} cm`;
+        
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot-X-Y+Z',
+                position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`
+            });
+            });*/
 
         </script>
 	</body>
