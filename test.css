@@ -55,7 +55,7 @@ html, body {
 
   position: absolute;
   top: 5vw;
-  right: 5vw;
+  left: 5vw;
 
   font-size: 5vw;
   font-weight: bold;
@@ -72,15 +72,13 @@ html, body {
 
   position: fixed;
   top: 10vh;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 4vw;
+  margin: 0px 10px;
+  padding: 0px;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
 
   color: white;
 
@@ -92,8 +90,12 @@ html, body {
   z-index: 9999;
 }
 
+#help * {
+  margin: 10px 5px;
+  padding: 0px;
+}
+
 #help h1 {
-  margin: 0vw;
   font-weight: bold;
 }
 
@@ -153,44 +155,42 @@ html, body {
   }
 }
 
-#mainInfoDiv {
-  height: 100%;
-
+#help .infodiv {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  color: white;
-}
-
-.infodiv {
-  margin: 2vw 0vw;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
 @media (min-width: 401px) {
-  .infodiv img{
-    flex-grow: 1;
-    max-height: 42vw;
-    margin: 0vw 1vw 0vw 2vw;
+  #help .infodiv img{
+    max-height: 18vh;
   }
 }
 
 @media (max-width: 400px) {
-  .infodiv img{
-    flex-grow: 1;
-    max-height: 30vw;
-    margin: 0vw 1vw 0vw 2vw;
+  #help .infodiv img{
+    max-height: 44vh;
   }
 }
 
-.infodiv p{
-  font-size: 4vw;
-  flex-grow: 1;
-  margin: 0vw 2vw 0vw 1vw;
+#help .infodiv p{
+  font-size: 18px;
+  text-align: center;
+}
+
+#help .infoPhoto{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+#help .infoPhoto img{
+  height: 8vh;
+}
+
+#help .infoPhoto p{
+  margin: 0px;
+  font-size: 20px;
+  text-align: center;
 }
 
 #button_ar{
@@ -274,4 +274,36 @@ html, body {
   /* This keeps child nodes hidden while the element loads */
   :not(:defined) > * {
   display: none;
+  }
+
+  #border {
+    visibility: hidden;
+    position: absolute;
+    width: fit-content;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    z-index: 3;
+  
+    border: 5px solid white;
+    border-radius: 50%;
+  }
+  
+  #buttonScreenshot {
+    margin: 1vh;
+
+    width: 70px;
+    height: 70px;
+  
+    background-color: white;
+    border-radius: 50%;
+    outline:none;
+  }
+  
+  #imgCamera {
+    height: 50px;
+  }
+  
+  #buttonScreenshot:hover {
+    background-color: grey;
   }

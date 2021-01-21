@@ -51,16 +51,40 @@
                         <img src="./img/exempleDoubleTouch.png">
                         <p>Touch the artwork with two fingers and move them apart or bring them closer to resize the artwork</p>
                     </div>
+                    <div class="infoPhoto" id="infoPhoto">
+                        <img src="./img/buttonPhotoTouch.png">
+                        <p>Touch this button to take a picture</p>
+                    </div>
                 </div>
+            </div>
+            <div id="border">
+                <button id="buttonScreenshot"></button>
             </div>
         </model-viewer>
         <script>
             var modelViewer = document.querySelector("model-viewer");
             var h1 = document.querySelector("h1");
             var divQRCode = document.getElementById("qrcode");
+            const divInfoPhoto = document.getElementById("infoPhoto");
             var buttonHelp = document.getElementById("buttonHelp");
             var buttonAR= document.getElementById("buttonAR");
             var help = document.getElementById("help");
+
+            const divButton = document.getElementById('border');
+            const buttonScreenshot = document.getElementById('buttonScreenshot');
+            buttonScreenshot.onclick = takeScreenshot;
+
+            function takeScreenshot() {
+                var image = new Image();
+                image.src = modelViewer.toDataURL("image/png");
+                var anchor = document.createElement('a');
+                anchor.setAttribute('href', image.src);
+                anchor.setAttribute('download', 'arview.png');
+                anchor.click();
+
+                document.querySelector("#buttonScreenshot").style.backgroundColor = "white";
+                anchor.remove();
+            }
             
             divQRCode.style.visibility = "hidden";
             this.help.style.visibility = "hidden";
@@ -79,15 +103,18 @@
                 if(event.detail.status === 'not-presenting'){
                     this.help.style.visibility = "hidden";
                     this.buttonHelp.style.visibility = "hidden";
+                    this.border.style.visibility = "hidden";
                 } else if (event.detail.status === 'session-started') {
                     this.buttonHelp.style.visibility = "hidden";
                 } else if (event.detail.status === 'object-placed') {
                     this.buttonHelp.style.visibility = "visible";
+                    this.border.style.visibility = "hidden";
                 }
             });
 
             if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
                 || navigator.userAgent.indexOf("Chrome") != -1 ){
+                divInfoPhoto.parentNode.removeChild(divInfoPhoto);
                 help.onclick = function () {
                     help.style.visibility = "hidden";
                     helpVisibility = false;
@@ -106,6 +133,7 @@
                 }
                 buttonAR.style.visibility = "visible";
             } else {
+                divInfoPhoto.parentNode.removeChild(divInfoPhoto);
                 help.onclick = function () {
                     help.style.visibility = "hidden";
                     helpVisibility = false;
@@ -114,6 +142,7 @@
 
             buttonHelp.onclick = function () {
                 help.style.visibility = helpVisibility == 0 ? "visible" : "hidden";
+                //divButton.style.visibility = helpVisibility == 0 ? "hidden" : "visible";
                 helpVisibility = !helpVisibility;
             }
             

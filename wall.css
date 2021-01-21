@@ -55,7 +55,7 @@ html, body {
 
   position: absolute;
   top: 5vw;
-  right: 5vw;
+  left: 5vw;
 
   font-size: 5vw;
   font-weight: bold;
@@ -72,15 +72,13 @@ html, body {
 
   position: fixed;
   top: 10vh;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 4vw;
+  margin: 0px 10px;
+  padding: 0px;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
 
   color: white;
 
@@ -93,7 +91,6 @@ html, body {
 }
 
 #help h1 {
-  margin: 0vw;
   font-weight: bold;
 }
 
@@ -153,45 +150,60 @@ html, body {
   }
 }
 
-#mainInfoDiv {
-  height: 100%;
-
+#help .infodiv {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  color: white;
-}
-
-.infodiv {
-  display: flex;
-  flex-direction: column;
-  justify-content:space-between;
   align-items: center;
 }
 
 @media (min-width: 401px) {
-  .infodiv img{
-    flex-grow: 1;
-    max-height: 60vh;
-    margin: 1vh 0vw 1vh 5vw;
+  #help * {
+    margin: 10px 5px;
+    padding: 0px;
+  }
+
+  #help .infodiv img{
+    max-height: 40vh;
+    margin-left: 5vw;
+  }
+
+  #help .infodiv p{
+    font-size: 20px;
+    text-align: center;
   }
 }
 
 @media (max-width: 400px) {
-  .infodiv img{
-    flex-grow: 1;
-    max-height: 44vh;
-    margin: 1vh 0vw 1vh 5vw;
+  #help * {
+    margin: 4px 2px;
+    padding: 0px;
+  }
+
+  #help .infodiv img{
+    max-height: 34vh;
+    margin-left: 5vw;
+  }
+
+  #help .infodiv p{
+    font-size: 18px;
+    text-align: center;
+  }
+
+  #help .infoPhoto img{
+    height: 10vh;
+  }
+  
+  #help .infoPhoto p{
+    margin: 0px;
+    font-size: 18px;
+    text-align: center;
   }
 }
 
-.infodiv p{
-  margin: 0px;
-  font-size: 20px;
-  text-align: center;
-  padding: 2px 5px;
+#help .infoPhoto{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
 }
 
 #button_ar{
@@ -275,4 +287,36 @@ html, body {
   /* This keeps child nodes hidden while the element loads */
   :not(:defined) > * {
   display: none;
+  }
+
+  #border {
+    visibility: hidden;
+    position: absolute;
+    width: fit-content;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    z-index: 3;
+  
+    border: 5px solid white;
+    border-radius: 50%;
+  }
+  
+  #buttonScreenshot {
+    margin: 1vh;
+
+    width: 70px;
+    height: 70px;
+  
+    background-color: white;
+    border-radius: 50%;
+    outline:none;
+  }
+  
+  #imgCamera {
+    height: 50px;
+  }
+  
+  #buttonScreenshot:hover {
+    background-color: grey;
   }

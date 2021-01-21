@@ -35,21 +35,43 @@
             <button id="buttonHelp">?</button>
             <div id="help">
                 <h1>Help<h1>
-                <div id="mainInfoDiv">
-                    <div class="infodiv">
-                        <img src="./img/exempleSwipeWall.png">
-                        <p>Touch the artwork and move your finger on the screen to move the artwork on the wall</p>
-                    </div>
+                <div class="infodiv">
+                    <img src="./img/exempleSwipeWall.png">
+                    <p>Touch the artwork and move your finger on the screen to move the artwork on the wall</p>
                 </div>
+                <div class="infoPhoto" id="infoPhoto">
+                    <img src="./img/buttonPhotoTouch.png">
+                    <p>Touch this button to take a picture</p>
+                </div>
+            </div>
+            <div id="border">
+                <button id="buttonScreenshot"></button>
             </div>
         </model-viewer>
         <script>
             const modelViewer = document.querySelector("model-viewer");
             const h1 = document.querySelector("h1");
             const divQRCode = document.getElementById("qrcode");
+            const divInfoPhoto = document.getElementById("infoPhoto");
             const buttonHelp = document.getElementById("buttonHelp");
             const buttonAR= document.getElementById("buttonAR");
             const help = document.getElementById("help");
+
+            const divButton = document.getElementById('border');
+            const buttonScreenshot = document.getElementById('buttonScreenshot');
+            buttonScreenshot.onclick = takeScreenshot;
+
+            function takeScreenshot() {
+                var image = new Image();
+                image.src = modelViewer.toDataURL("image/png");
+                var anchor = document.createElement('a');
+                anchor.setAttribute('href', image.src);
+                anchor.setAttribute('download', 'arview.png');
+                anchor.click();
+
+                document.querySelector("#buttonScreenshot").style.backgroundColor = "white";
+                anchor.remove();
+            }
             
             divQRCode.style.visibility = "hidden";
             this.help.style.visibility = "hidden";
@@ -68,20 +90,24 @@
                 if(event.detail.status === 'not-presenting'){
                     this.help.style.visibility = "hidden";
                     this.buttonHelp.style.visibility = "hidden";
+                    this.border.style.visibility = "hidden";
                 } else if (event.detail.status === 'session-started') {
                     this.buttonHelp.style.visibility = "hidden";
                 } else if (event.detail.status === 'object-placed') {
                     this.buttonHelp.style.visibility = "visible";
+                    this.border.style.visibility = "hidden";
                 }
             });
 
             if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
                 || navigator.userAgent.indexOf("Chrome") != -1 ){
+                divInfoPhoto.parentNode.removeChild(divInfoPhoto);
                 help.onclick = function () {
                     help.style.visibility = "hidden";
                     helpVisibility = false;
                 }
             } else if(navigator.userAgent.indexOf("Safari") != -1) {
+                modelViewer.setAttribute('ar-scale', "auto");
                 buttonAR.onclick = function () {
                     help.style.visibility = "visible";
                     h1.innerText = "Touch To Start AR";
@@ -95,6 +121,7 @@
                 }
                 buttonAR.style.visibility = "visible";
             } else {
+                divInfoPhoto.parentNode.removeChild(divInfoPhoto);
                 help.onclick = function () {
                     help.style.visibility = "hidden";
                     helpVisibility = false;
@@ -103,6 +130,7 @@
 
             buttonHelp.onclick = function () {
                 help.style.visibility = helpVisibility == 0 ? "visible" : "hidden";
+                //divButton.style.visibility = helpVisibility == 0 ? "hidden" : "visible";
                 helpVisibility = !helpVisibility;
             }
 
