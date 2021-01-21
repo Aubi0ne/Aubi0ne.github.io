@@ -90,11 +90,6 @@ html, body {
   z-index: 9999;
 }
 
-#help * {
-  margin: 10px 5px;
-  padding: 0px;
-}
-
 #help h1 {
   font-weight: bold;
 }
@@ -161,36 +156,53 @@ html, body {
 }
 
 @media (min-width: 401px) {
+  #help * {
+    margin: 10px 5px;
+    padding: 0px;
+  }
+
   #help .infodiv img{
-    max-height: 18vh;
+    max-height: 40vh;
+    margin-left: 5vw;
+  }
+
+  #help .infodiv p{
+    font-size: 20px;
+    text-align: center;
   }
 }
 
 @media (max-width: 400px) {
-  #help .infodiv img{
-    max-height: 44vh;
+  #help * {
+    margin: 4px 2px;
+    padding: 0px;
   }
-}
 
-#help .infodiv p{
-  font-size: 18px;
-  text-align: center;
+  #help .infodiv img{
+    max-height: 34vh;
+    margin-left: 5vw;
+  }
+
+  #help .infodiv p{
+    font-size: 18px;
+    text-align: center;
+  }
+
+  #help .infoPhoto img{
+    height: 10vh;
+  }
+  
+  #help .infoPhoto p{
+    margin: 0px;
+    font-size: 18px;
+    text-align: center;
+  }
 }
 
 #help .infoPhoto{
   display: flex;
   justify-content:space-between;
   align-items: center;
-}
-
-#help .infoPhoto img{
-  height: 8vh;
-}
-
-#help .infoPhoto p{
-  margin: 0px;
-  font-size: 20px;
-  text-align: center;
 }
 
 #button_ar{
