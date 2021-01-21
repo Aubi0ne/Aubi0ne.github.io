@@ -171,6 +171,16 @@ html, body {
     font-size: 20px;
     text-align: center;
   }
+
+  #help .infoPhoto img{
+    height: 10vh;
+  }
+  
+  #help .infoPhoto p{
+    margin: 0px;
+    font-size: 20px;
+    text-align: center;
+  }
 }
 
 @media (max-width: 400px) {
