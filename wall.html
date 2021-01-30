@@ -16,8 +16,9 @@
         <button id="buttonAR"></button>
         <model-viewer
             ar
-            exposure="0.5"
+            exposure="1"
             ar-placement="wall"
+            environment-image="neutral"
             ar-scale="fixed"
             camera-controls
             alt="A 3D model of some wall art"
@@ -83,7 +84,7 @@
             const url = window.location.href;
             const filename = url.substring(url.lastIndexOf('?')+1);
 
-            modelViewer.src = "./models/gltf/" + filename + ".gltf";
+            modelViewer.src = "./models/gltf/" + filename + ".glb";
             modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
 
             modelViewer.addEventListener('ar-status', (event) => {
