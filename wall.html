@@ -84,7 +84,7 @@
             const url = window.location.href;
             const filename = url.substring(url.lastIndexOf('?')+1);
 
-            modelViewer.src = "./models/gltf/" + filename + ".glb";
+            modelViewer.src = "./models/gltf/" + filename + ".gltf";
             modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
 
             modelViewer.addEventListener('ar-status', (event) => {
