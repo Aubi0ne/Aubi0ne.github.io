@@ -62,17 +62,139 @@
             </div>
         </model-viewer>
         <script>
-            var modelViewer = document.querySelector("model-viewer");
-            var h1 = document.querySelector("h1");
-            var divQRCode = document.getElementById("qrcode");
+            const modelViewer = document.querySelector("model-viewer");
+            const h1 = document.querySelector("h1");
+            const divQRCode = document.getElementById("qrcode");
             const divInfoPhoto = document.getElementById("infoPhoto");
-            var buttonHelp = document.getElementById("buttonHelp");
-            var buttonAR= document.getElementById("buttonAR");
-            var help = document.getElementById("help");
+            const buttonHelp = document.getElementById("buttonHelp");
+            const buttonAR= document.getElementById("buttonAR");
+            const help = document.getElementById("help");
+            const realButtonAR = document.getElementById("ar-button");
 
             const divButton = document.getElementById('border');
             const buttonScreenshot = document.getElementById('buttonScreenshot');
             buttonScreenshot.onclick = takeScreenshot;
+
+            modelViewer.style.visibility = "hidden";
+            divQRCode.style.visibility = "hidden";
+            this.help.style.visibility = "hidden";
+            this.buttonAR.style.visibility = "hidden";
+            this.buttonHelp.style.visibility = "hidden";
+            let helpVisibility = false;
+            let qrVisibility = false;
+
+            var url = window.location.href;
+            var filename = url.substring(url.lastIndexOf('?')+1);
+
+            checkFileExist();
+
+            function checkFileExist() {
+                var http = new XMLHttpRequest(); 
+                http.open('HEAD', "./models/gltf/" + filename + ".gltf", false); 
+                http.send(); 
+                if (http.status === 200) {
+                    modelViewer.style.visibility = "visible";
+                    modelViewer.src = "./models/gltf/" + filename + ".gltf";
+                    modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
+                    checkNavigatorXr();
+                    checkNavigator();
+                } else {
+                    modelViewer.style.visibility = "hidden";
+                    help.style.visibility = "hidden";
+                }
+            }
+
+            function checkNavigator() {
+                if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
+                || navigator.userAgent.indexOf("Chrome") != -1 ){
+                    divInfoPhoto.parentNode.removeChild(divInfoPhoto);
+                    help.onclick = function () {
+                        help.style.visibility = "hidden";
+                        helpVisibility = false;
+                    }
+                } else if(navigator.userAgent.indexOf("Safari") != -1) {
+                    buttonAR.onclick = function () {
+                        help.style.visibility = "visible";
+                        h1.innerText = "Touch To Start AR";
+                        h1.style.webkitAnimation =  "breathing 3s ease-out infinite normal";
+                        h1.style.animation = "breathing 3s ease-out infinite normal";
+                    }
+                    help.onclick = function () {
+                        help.style.visibility = "hidden";
+                        helpVisibility = false;
+                        modelViewer.activateAR();
+                    }
+                    buttonAR.style.visibility = "visible";
+                } else {
+                    divInfoPhoto.parentNode.removeChild(divInfoPhoto);
+                    help.onclick = function () {
+                        help.style.visibility = "hidden";
+                        helpVisibility = false;
+                    }
+                }
+
+                modelViewer.addEventListener('ar-status', (event) => {
+                    if(event.detail.status === 'not-presenting'){
+                        this.help.style.visibility = "hidden";
+                        this.buttonHelp.style.visibility = "hidden";
+                        this.border.style.visibility = "hidden";
+                    } else if (event.detail.status === 'session-started') {
+                        this.buttonHelp.style.visibility = "hidden";
+                    } else if (event.detail.status === 'object-placed') {
+                        this.buttonHelp.style.visibility = "visible";
+                        this.border.style.visibility = "hidden";
+                    }
+                });
+
+                buttonHelp.onclick = function () {
+                    help.style.visibility = helpVisibility == 0 ? "visible" : "hidden";
+                    //divButton.style.visibility = helpVisibility == 0 ? "hidden" : "visible";
+                    helpVisibility = !helpVisibility;
+                }
+            }
+
+            function displayModale(){
+                qrVisibility = !qrVisibility;
+                if (qrVisibility){
+                    divQRCode.style.visibility = "visible";
+                } else {
+                    divQRCode.style.visibility = "hidden";
+                }
+            }
+
+            function checkNavigatorXr(){
+                if ( 'xr' in navigator ) {
+                    navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
+                        if (!supported){
+                            const button = document.createElement( 'button' );
+                            button.id = 'button_ar';
+                            button.onclick = displayModale;
+                            button.textContent = 'View in your room';
+                            modelViewer.appendChild(button);
+                            
+                            var qrcode = new QRCode(divQRCode, {
+                                width : 100,
+                                height : 100
+                            });
+                            qrcode.makeCode(url);
+                        } else
+                            document.body.removeChild(divQRCode);
+                    });
+                } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
+                    const button = document.createElement( 'button' );
+                    button.id = 'button_ar';
+                    button.onclick = displayModale;
+                    button.textContent = 'View in your room';
+                    modelViewer.appendChild(button);
+
+                    var qrcode = new QRCode(divQRCode, {
+                    	width : 100,
+                    	height : 100
+                    });
+                    qrcode.makeCode(url);
+                } else
+                    document.body.removeChild(divQRCode);
+            }
 
             function takeScreenshot() {
                 var image = new Image();
@@ -85,111 +207,6 @@
                 document.querySelector("#buttonScreenshot").style.backgroundColor = "white";
                 anchor.remove();
             }
-            
-            divQRCode.style.visibility = "hidden";
-            this.help.style.visibility = "hidden";
-            this.buttonAR.style.visibility = "hidden";
-            this.buttonHelp.style.visibility = "hidden";
-            let helpVisibility = false;
-            let qrVisibility = false;
-
-            var url = window.location.href;
-            var filename = url.substring(url.lastIndexOf('?')+1);
-
-            modelViewer.src = "./models/gltf/" + filename + ".gltf";
-            modelViewer.setAttribute("ios-src", "./models/usdz/" + filename + ".usdz");
-
-            modelViewer.addEventListener('ar-status', (event) => {
-                if(event.detail.status === 'not-presenting'){
-                    this.help.style.visibility = "hidden";
-                    this.buttonHelp.style.visibility = "hidden";
-                    this.border.style.visibility = "hidden";
-                } else if (event.detail.status === 'session-started') {
-                    this.buttonHelp.style.visibility = "hidden";
-                } else if (event.detail.status === 'object-placed') {
-                    this.buttonHelp.style.visibility = "visible";
-                    this.border.style.visibility = "hidden";
-                }
-            });
-
-            if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1
-                || navigator.userAgent.indexOf("Chrome") != -1 ){
-                divInfoPhoto.parentNode.removeChild(divInfoPhoto);
-                help.onclick = function () {
-                    help.style.visibility = "hidden";
-                    helpVisibility = false;
-                }
-            } else if(navigator.userAgent.indexOf("Safari") != -1) {
-                buttonAR.onclick = function () {
-                    help.style.visibility = "visible";
-                    h1.innerText = "Touch To Start AR";
-                    h1.style.webkitAnimation =  "breathing 3s ease-out infinite normal";
-                    h1.style.animation = "breathing 3s ease-out infinite normal";
-                }
-                help.onclick = function () {
-                    help.style.visibility = "hidden";
-                    helpVisibility = false;
-                    modelViewer.activateAR();
-                }
-                buttonAR.style.visibility = "visible";
-            } else {
-                divInfoPhoto.parentNode.removeChild(divInfoPhoto);
-                help.onclick = function () {
-                    help.style.visibility = "hidden";
-                    helpVisibility = false;
-                }
-            }
-
-            buttonHelp.onclick = function () {
-                help.style.visibility = helpVisibility == 0 ? "visible" : "hidden";
-                //divButton.style.visibility = helpVisibility == 0 ? "hidden" : "visible";
-                helpVisibility = !helpVisibility;
-            }
-            
-            if (!(filename === "TonyCraggSculpture" || filename === "TonyCraggSculpture11" || filename === "Chaise" || filename === "Recumbent")){
-                window.location.href="wall.html?" + filename;
-            }
-
-            function displayModale(){
-                qrVisibility = !qrVisibility;
-                if (qrVisibility){
-                    divQRCode.style.visibility = "visible";
-                } else {
-                    divQRCode.style.visibility = "hidden";
-                }
-            }
-
-            if ( 'xr' in navigator ) {
-			    navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
-                    if (!supported){
-                        const button = document.createElement( 'button' );
-                        button.id = 'button_ar';
-                        button.onclick = displayModale;
-                        button.textContent = 'View in your room';
-                        modelViewer.appendChild(button);
-                        
-                        var qrcode = new QRCode(divQRCode, {
-                        	width : 100,
-                        	height : 100
-                        });
-                        qrcode.makeCode(url);
-                    } else
-                        document.body.removeChild(divQRCode);
-                });
-            } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
-                const button = document.createElement( 'button' );
-                button.id = 'button_ar';
-                button.onclick = displayModale;
-                button.textContent = 'View in your room';
-                modelViewer.appendChild(button);
-                
-                var qrcode = new QRCode(divQRCode, {
-                	width : 100,
-                	height : 100
-                });
-                qrcode.makeCode(url);
-            } else
-                document.body.removeChild(divQRCode);
 
             /*modelViewer.addEventListener('load', () => {
             const center = modelViewer.getCameraTarget();
