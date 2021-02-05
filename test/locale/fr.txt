@@ -1,0 +1,66 @@
+#: locale=fr
+
+## Tour
+
+### Description
+
+### Title
+tour.name = Casa Cascada light
+
+## Skin
+
+### Tooltip
+IconButton_807BAF04_8E22_670D_41B7_872D69E5EABA.toolTip = Full Screen
+IconButton_80E5955A_8E23_BB05_41CA_43DD61DBAEE9.toolTip = Hotspots Visibility
+IconButton_8105A313_8E22_BF0B_41E1_331C6035A930.toolTip = Audio On/Off
+IconButton_811D89E1_8E3D_AB07_4191_94003C90B2FF.toolTip = Settings
+IconButton_843BBEF5_8E22_690F_419D_28CBDD771ACC.toolTip = Panorama List
+IconButton_87577B8F_8E22_AF1B_41CC_79EB87AE6DED.toolTip = Open Info Window about the Villa
+IconButton_87BF50DD_8E22_593F_41AB_0C1A6F6F0062.toolTip = Play Casa Cascada Video
+IconButton_87D4922A_8E23_D905_41BC_341D63668700.toolTip = Open Live Panorama
+IconButton_87D69DC5_8E23_AB0F_41C9_0743A2FA3EED.toolTip = See Photos
+IconButton_B1FFDC43_9747_F04B_41CA_231F18F95B26.toolTip = Switch to Night View
+IconButton_B22B76A7_9745_F0CB_41DB_B0F5A8C8B42B.toolTip = Open Live Panorama
+IconButton_B2334C79_974C_B047_41C7_7E0177D9822B.toolTip = Switch to Day View
+IconButton_B23514C5_974F_904F_41DE_72E79CD998A9.toolTip = Switch to Day View
+IconButton_B23A9BB7_974D_90CB_41E0_81A6F7215C4F.toolTip = Switch to Day View
+IconButton_B23CD950_974C_F045_41D0_F8B4277D2B19.toolTip = Switch to Day View
+IconButton_B3E22EC4_9743_B04D_41D2_D21DD28DED46.toolTip = Switch to Day View
+IconButton_B52EB62C_9745_B3DD_41CB_1690EEACA52A.toolTip = Watch Video
+IconButton_B530AA99_977D_70C7_41CC_E8FB9E97A6CE.toolTip = View Door Detail
+IconButton_B65A0E44_977F_904D_41D1_F0D3BD0ACE54.toolTip = View Picture
+IconButton_B7E05EB0_977F_90C5_419D_BE1CB052CDF8.toolTip = View Figure
+IconButton_B7E18152_977F_B045_41D0_DF5267274516.toolTip = View Miró's figure
+IconButton_B7EBFD1D_977C_B1FF_41DD_FF84B2338AC5.toolTip = View Picture
+IconButton_BF27076E_B0A7_C399_41D8_C4E13467FA83.toolTip = View Bedroom Mirror
+
+## Media
+
+### Title
+album_9D83BE5D_96CC_F07F_41D2_D123849CCDC8.label = Photo Album Casa Cascada-6032
+panorama_436210A5_4BE2_7E22_41A1_7AB279A95401.label = Entrance Night
+panorama_43647893_4BE2_CEE6_41C4_07378FDECE7B.label = Living Room
+panorama_436B2211_4BE2_5DE3_4191_5DA6149B332E.label = Entry Hall
+panorama_436B5DA9_4BE2_C622_41C6_C5D90373F5E2.label = Master Bedroom
+panorama_43BF85D4_4BE3_C661_41BD_F51937765D4F.label = Entrance
+panorama_4798F767_4BE6_C22E_41CA_168952B09BB8.label = Live Panorama
+photo_401B85E0_4C63_7E98_41BB_6A16C31E31A2.label = 01
+photo_47509739_4C63_7BE8_41AB_2F19E7831FE9.label = 02
+photo_47513F79_4C63_6A68_41B0_4316512EE82D.label = 04
+photo_475141B6_4C63_16F8_41BC_1C591B53C229.label = 06
+photo_47514988_4C63_16A8_41AF_8614FAB6B00A.label = 10
+photo_4752B0C7_4C63_1698_4184_60EBB2677E81.label = 05
+photo_4752B2F9_4C63_1A68_41B9_3E355723AF71.label = 07
+photo_4752B432_4C63_1DF8_41D0_5E704EDA328E.label = 08
+photo_4752B84C_4C63_15A8_41B8_79815C3443D9.label = 09
+photo_4752CBB1_4C63_6AF8_41D3_0C33DB863547.label = 03
+video_A5151E3E_B250_204B_41B1_A11E0FD906B1.label = Terrasse
+video_ACBB7AF4_BF3B_D1C3_41DA_359C1316B061.label = Casa Cascada
+
+## Hotspot
+
+### Tooltip
+HotspotPanoramaOverlayArea_5A980CF6_540E_DFF9_41D4_54979FEFFC51.toolTip = This elevator is the main entry to Casa Cascada. It takes you from the driveway up to the house.
+HotspotPanoramaOverlayArea_5A98FCF6_540E_DFF9_41CA_0F219BCD10A2.toolTip = View Door Detail
+HotspotPanoramaOverlayArea_5A993CF6_540E_DFF9_41C4_CE6EBDC18351.toolTip = View Bedroom Mirror
+HotspotPanoramaOverlayArea_5A99DCF6_540E_DFF9_41AA_30515433177B.toolTip = View Painting
