@@ -18,9 +18,19 @@
                         1,
                         1
                     ],
-                    "intensity" : 1000,
+                    "intensity" : 75,
                     "type" : "point",
                     "name" : "Light"
+                },
+                {
+                    "color" : [
+                        1,
+                        1,
+                        1
+                    ],
+                    "intensity" : 50,
+                    "type" : "point",
+                    "name" : "Light.001"
                 }
             ]
         }
@@ -31,6 +41,7 @@
             "name" : "Scene",
             "nodes" : [
                 1,
+                2,
                 3,
                 4,
                 5,
@@ -38,7 +49,7 @@
                 7,
                 8,
                 9,
-                10
+                11
             ]
         }
     ],
@@ -69,25 +80,12 @@
                 0.570947527885437
             ],
             "translation" : [
-                4.076245307922363,
-                5.903861999511719,
-                -1.0054539442062378
+                -1.951127529144287,
+                2.966948986053467,
+                -3.2192766666412354
             ]
         },
         {
-            "camera" : 0,
-            "name" : "Camera_Orientation",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ]
-        },
-        {
-            "children" : [
-                2
-            ],
             "name" : "Camera",
             "rotation" : [
                 0.483536034822464,
@@ -102,9 +100,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 16
-            },
             "mesh" : 0,
             "name" : "gros_cube001",
             "rotation" : [
@@ -125,9 +120,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 17
-            },
             "mesh" : 1,
             "name" : "moyein_gros_cube001",
             "rotation" : [
@@ -148,9 +140,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 18
-            },
             "mesh" : 2,
             "name" : "moyen_cube001",
             "rotation" : [
@@ -171,9 +160,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 19
-            },
             "mesh" : 3,
             "name" : "moyen_petit_cube001",
             "rotation" : [
@@ -194,9 +180,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 20
-            },
             "mesh" : 4,
             "name" : "petit_cube001",
             "rotation" : [
@@ -217,9 +200,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 22
-            },
             "mesh" : 5,
             "name" : "tres_gros_cube001",
             "rotation" : [
@@ -240,9 +220,6 @@
             ]
         },
         {
-            "extras" : {
-                "MaxHandle" : 23
-            },
             "mesh" : 6,
             "name" : "tres_petit_cube001",
             "rotation" : [
@@ -261,18 +238,37 @@
                 2.066071033477783,
                 -0.24668113887310028
             ]
-        }
-    ],
-    "cameras" : [
+        },
         {
-            "name" : "Camera",
-            "perspective" : {
-                "aspectRatio" : 1.7777777777777777,
-                "yfov" : 0.39959652046304894,
-                "zfar" : 100,
-                "znear" : 0.10000000149011612
+            "extensions" : {
+                "KHR_lights_punctual" : {
+                    "light" : 1
+                }
             },
-            "type" : "perspective"
+            "name" : "Light.001_Orientation",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ]
+        },
+        {
+            "children" : [
+                10
+            ],
+            "name" : "Light.001",
+            "rotation" : [
+                0.16907575726509094,
+                0.7558803558349609,
+                -0.27217137813568115,
+                0.570947527885437
+            ],
+            "translation" : [
+                4.160177230834961,
+                2.5860280990600586,
+                -0.825371503829956
+            ]
         }
     ],
     "materials" : [
