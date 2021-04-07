@@ -3,48 +3,6 @@
         "generator" : "Khronos glTF Blender I/O v1.5.17",
         "version" : "2.0"
     },
-    "extensionsUsed" : [
-        "KHR_lights_punctual"
-    ],
-    "extensionsRequired" : [
-        "KHR_lights_punctual"
-    ],
-    "extensions" : {
-        "KHR_lights_punctual" : {
-            "lights" : [
-                {
-                    "color" : [
-                        1,
-                        1,
-                        1
-                    ],
-                    "intensity" : 25,
-                    "type" : "point",
-                    "name" : "Point"
-                },
-                {
-                    "color" : [
-                        1,
-                        1,
-                        1
-                    ],
-                    "intensity" : 25,
-                    "type" : "point",
-                    "name" : "Point.001"
-                },
-                {
-                    "color" : [
-                        1,
-                        1,
-                        1
-                    ],
-                    "intensity" : 25,
-                    "type" : "point",
-                    "name" : "Point.002"
-                }
-            ]
-        }
-    },
     "scene" : 0,
     "scenes" : [
         {
@@ -57,10 +15,7 @@
                 4,
                 5,
                 6,
-                7,
-                9,
-                11,
-                13
+                7
             ]
         }
     ],
@@ -217,81 +172,6 @@
                 0.2605755925178528,
                 2.065295696258545,
                 -0.2451571375131607
-            ]
-        },
-        {
-            "extensions" : {
-                "KHR_lights_punctual" : {
-                    "light" : 0
-                }
-            },
-            "name" : "Point_Orientation",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ]
-        },
-        {
-            "children" : [
-                8
-            ],
-            "name" : "Point",
-            "translation" : [
-                0,
-                2.2340569496154785,
-                -2.0111749172210693
-            ]
-        },
-        {
-            "extensions" : {
-                "KHR_lights_punctual" : {
-                    "light" : 1
-                }
-            },
-            "name" : "Point.001_Orientation",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ]
-        },
-        {
-            "children" : [
-                10
-            ],
-            "name" : "Point.001",
-            "translation" : [
-                2.0200328826904297,
-                2.2340569496154785,
-                0.09070241451263428
-            ]
-        },
-        {
-            "extensions" : {
-                "KHR_lights_punctual" : {
-                    "light" : 2
-                }
-            },
-            "name" : "Point.002_Orientation",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ]
-        },
-        {
-            "children" : [
-                12
-            ],
-            "name" : "Point.002",
-            "translation" : [
-                -1.968061089515686,
-                2.2340569496154785,
-                0.03210711479187012
             ]
         }
     ],
