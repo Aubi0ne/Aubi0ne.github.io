@@ -164,42 +164,35 @@
                 }
             }
 
-            function checkNavigatorXr(){
-                if ( 'xr' in navigator ) {
-                    navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
-			const buttonTest = document.createElement( 'button' );
-                        buttonTest.textContent = "TEST" + supported;
-                        modelViewer.appendChild(buttonTest);
-                        if (!supported){
-                            const button = document.createElement( 'button' );
-                            button.id = 'button_ar';
-                            button.onclick = displayModale;
-                            button.textContent = 'View in your room';
-                            modelViewer.appendChild(button);
+            function disableAR(){
+                const button = document.createElement( 'button' );
+                button.id = 'button_ar';
+                button.onclick = displayModale;
+                button.textContent = 'View in your room';
+                modelViewer.appendChild(button);
                             
-                            var qrcode = new QRCode(divQRCode, {
-                                width : 100,
-                                height : 100
-                            });
-                            qrcode.makeCode(url);
-                        } else
-                            document.body.removeChild(divQRCode);
-                    });
-                } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
-                    const button = document.createElement( 'button' );
-                    button.id = 'button_ar';
-                    button.onclick = displayModale;
-                    button.textContent = 'View in your room';
-                    modelViewer.appendChild(button);
+                var qrcode = new QRCode(divQRCode, {
+                    width : 100,
+                    height : 100
+                });
+                qrcode.makeCode(url);
+            }
 
-                    var qrcode = new QRCode(divQRCode, {
-                    	width : 100,
-                    	height : 100
-                    });
-                    qrcode.makeCode(url);
-                } else {
-                    document.body.removeChild(divQRCode);
-		}
+            function checkNavigatorXr(){
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                    // true for mobile device
+                    document.write("mobile device");
+                    if ( 'xr' in navigator ) {
+                        navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
+                            if (!supported)
+                                disableAR()
+                            else
+                                document.body.removeChild(divQRCode);
+                        });
+                    }
+                }else{
+                    disableAR();
+                }
             }
 
             function takeScreenshot() {
