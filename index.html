@@ -166,9 +166,9 @@
 
             function checkNavigatorXr(){
                 if ( 'xr' in navigator ) {
-			const button = document.createElement( 'button' );
-                        button.textContent = "XR!";
-                        modelViewer.appendChild(button);
+			const buttonTest = document.createElement( 'button' );
+                        buttonTest.textContent = "XR!";
+                        modelViewer.appendChild(buttonTest);
                     navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
 			console.log("coucou", supported)
                         if (!supported){
@@ -187,9 +187,9 @@
                             document.body.removeChild(divQRCode);
                     });
                 } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
-			const button = document.createElement( 'button' );
-                        button.textContent = "TEST!";
-                        modelViewer.appendChild(button);
+			const buttonTest = document.createElement( 'button' );
+                        buttonTest.textContent = "TEST!";
+                        modelViewer.appendChild(buttonTest);
 		    console.log("pouet")
                     const button = document.createElement( 'button' );
                     button.id = 'button_ar';
