@@ -166,11 +166,10 @@
 
             function checkNavigatorXr(){
                 if ( 'xr' in navigator ) {
-			const buttonTest = document.createElement( 'button' );
-                        buttonTest.textContent = "XR!";
-                        modelViewer.appendChild(buttonTest);
                     navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
-			console.log("coucou", supported)
+			const buttonTest = document.createElement( 'button' );
+                        buttonTest.textContent = "TEST" + supported;
+                        modelViewer.appendChild(buttonTest);
                         if (!supported){
                             const button = document.createElement( 'button' );
                             button.id = 'button_ar';
@@ -187,10 +186,6 @@
                             document.body.removeChild(divQRCode);
                     });
                 } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
-			const buttonTest = document.createElement( 'button' );
-                        buttonTest.textContent = "TEST!";
-                        modelViewer.appendChild(buttonTest);
-		    console.log("pouet")
                     const button = document.createElement( 'button' );
                     button.id = 'button_ar';
                     button.onclick = displayModale;
@@ -203,7 +198,6 @@
                     });
                     qrcode.makeCode(url);
                 } else {
-		    console.log("chouette")
                     document.body.removeChild(divQRCode);
 		}
             }
