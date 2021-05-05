@@ -181,7 +181,6 @@
             function checkNavigatorXr(){
                 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
                     // true for mobile device
-                    document.write("mobile device");
                     if ( 'xr' in navigator ) {
                         navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
                             if (!supported)
