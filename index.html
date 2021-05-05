@@ -167,6 +167,7 @@
             function checkNavigatorXr(){
                 if ( 'xr' in navigator ) {
                     navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
+			console.log("coucou", supported)
                         if (!supported){
                             const button = document.createElement( 'button' );
                             button.id = 'button_ar';
@@ -183,6 +184,7 @@
                             document.body.removeChild(divQRCode);
                     });
                 } else if ((window.innerWidth > 800 ) && ( window.innerHeight > 600 )){
+		    console.log("pouet")
                     const button = document.createElement( 'button' );
                     button.id = 'button_ar';
                     button.onclick = displayModale;
@@ -194,8 +196,10 @@
                     	height : 100
                     });
                     qrcode.makeCode(url);
-                } else
+                } else {
+		    console.log("chouette")
                     document.body.removeChild(divQRCode);
+		}
             }
 
             function takeScreenshot() {
